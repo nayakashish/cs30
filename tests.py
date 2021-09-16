@@ -23,13 +23,26 @@ top = 22.5
 shot = screenshot(pos[0], pos[1], pos[2], pos[3])
 lst = []
 templst = []
-print(lst)
 for j in range(8):
 
     for i in range(10):
+        icon = ''
+        rgb = shot.getpixel((left, top))
+        if rgb == (170, 215, 81) or rgb == (162, 209, 73):
+            icon = '-'
+        elif rgb == (229, 194, 159) or rgb == (215, 184, 153):
+            icon = ' '
+        elif rgb == (25, 118, 210):
+            icon = '1'
+        elif rgb == (118, 161, 96) or rgb == (113, 157, 94):
+            icon = '2'
+        elif rgb == (211, 47, 47):
+            icon = '3'
+        else:
+            icon = '!'
 
-        # screenshot(left, top, 45, 45, '{}.png'.format(num))
-        templst.append(shot.getpixel((left, top)))
+
+        templst.append(icon)
 
 
         left += 45
@@ -38,11 +51,12 @@ for j in range(8):
     top += 45
     left = 23
 
-print(lst)
+[print(*row) for row in lst]
+
 ''' 
 Colour Codes RGB
 Three 211 47 47
-Two 118 161 96
+Two 118 161 96 or (113, 157, 94)
 One 25 118 210
 Four
 Five
