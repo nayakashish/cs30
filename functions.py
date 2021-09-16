@@ -14,7 +14,7 @@ def screenshot(left, top, width, height, title=''):
 
 # pos = [i for i in pyautogui.locateOnScreen('easy_grid.png')]  # Must be new board
 # pos = [left, top, width, height]
-pos = [1027, 385, 448, 359]  # School Computer
+pos = [1027, 385, 450, 360]  # School Computer
 # pos = [1207, 421, 450, 360]  # Home Computer
 
 
@@ -59,6 +59,7 @@ def grid():
         left = 23
 
     return lst
+
 
 
 
