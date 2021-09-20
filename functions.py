@@ -15,53 +15,53 @@ def screenshot(left, top, width, height, title=''):
 # pos = [i for i in pyautogui.locateOnScreen('easy_grid.png')]  # Must be new board
 # pos = [left, top, width, height]
 pos = [1027, 385, 450, 360]  # School Computer
+
+
 # pos = [1207, 421, 450, 360]  # Home Computer
 
 
-def classicon(rgb):
-    if rgb == (170, 215, 81) or rgb == (162, 209, 73):
+def classify(x, y):
+    y = int(y)
+    x = int(x)
+    if pyautogui.pixelMatchesColor(x, y, (162, 208, 73), tolerance=20):
         icon = '-'
-    elif rgb == (229, 194, 159) or rgb == (215, 184, 153):
+    elif pyautogui.pixelMatchesColor(x, y, (215, 184, 153), tolerance=20):
         icon = ' '
-    elif rgb == (25, 118, 210):
+    elif pyautogui.pixelMatchesColor(x, y, (25, 118, 211), tolerance=20):
         icon = '1'
-    elif rgb == (118, 161, 96) or rgb == (113, 157, 94):
+    elif pyautogui.pixelMatchesColor(x, y, (57, 142, 61), tolerance=20):
         icon = '2'
-    elif rgb == (211, 47, 47):
+    elif pyautogui.pixelMatchesColor(x, y, (208, 48, 47), tolerance=20):
         icon = '3'
-    elif rgb == (143, 64, 160) or rgb == (146, 66, 161):
+    elif pyautogui.pixelMatchesColor(x, y, (143, 64, 161), tolerance=20):
         icon = '4'
-    elif rgb == (175, 183, 62) or (182, 188, 68):
-        icon = 'X'
     else:
         icon = '!'
-        print(rgb)
+        # print(rgb)
+
     return icon
 
 
 def grid():
-    left = 23
-    top = 22.5
-    shot = screenshot(pos[0], pos[1], pos[2], pos[3])
+    left = pos[0] + 23
+    top = pos[1] + 22.5
+    # shot = screenshot(pos[0], pos[1], pos[2], pos[3])
     lst = []
     templst = []
     for j in range(8):
 
         for i in range(10):
-            icon = ''
-            rgb = shot.getpixel((left, top))
-            templst.append(classicon(rgb))
+            # rgb = shot.getpixel((left, top))
+            templst.append(classify(left, top))
+            # print(left, top)
 
             left += 45
         lst.append(templst)
         templst = []
         top += 45
-        left = 23
+        left = pos[0] + 23
 
     return lst
-
-
-
 
 
 ''' 
