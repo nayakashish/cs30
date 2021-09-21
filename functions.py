@@ -10,14 +10,40 @@ def screenshot(left, top, width, height, title=''):
     return image
 
 
-# GRID is 45x45? px
+def adjacents(lst, idx1, idx2):
+    adj = []
+    for q in range(8):
+        i = idx1
+        j = idx2
 
-# pos = [i for i in pyautogui.locateOnScreen('easy_grid.png')]  # Must be new board
-# pos = [left, top, width, height]
-pos = [1027, 385, 450, 360]  # School Computer
+        if q == 0:
+            i -= 1
+            j -= 1
+        elif q == 1:
+            i -= 1
+        elif q == 2:
+            i -= 1
+            j += 1
+        elif q == 3:
+            j -= 1
+        elif q == 4:
+            j += 1
+        elif q == 5:
+            i += 1
+            j -= 1
+        elif q == 6:
+            i += 1
+        elif q == 7:
+            i += 1
+            j += 1
 
-
-# pos = [1207, 421, 450, 360]  # Home Computer
+        if i < 0 or i > 7:
+            continue
+        elif j < 0 or j > 9:
+            continue
+        else:
+            adj.append(lst[i][j])
+    return adj
 
 
 def classify(x, y):
@@ -29,7 +55,7 @@ def classify(x, y):
         icon = ' '
     elif pyautogui.pixelMatchesColor(x, y, (25, 118, 211), tolerance=20):
         icon = '1'
-    elif pyautogui.pixelMatchesColor(x, y, (57, 142, 61), tolerance=20):
+    elif pyautogui.pixelMatchesColor(x, y, (57, 142, 61), tolerance=65):
         icon = '2'
     elif pyautogui.pixelMatchesColor(x, y, (208, 48, 47), tolerance=20):
         icon = '3'
@@ -37,12 +63,14 @@ def classify(x, y):
         icon = '4'
     else:
         icon = '!'
+        print(pyautogui.pixel(x, y))
+
         # print(rgb)
 
     return icon
 
 
-def grid():
+def grid(pos):
     left = pos[0] + 23
     top = pos[1] + 22.5
     # shot = screenshot(pos[0], pos[1], pos[2], pos[3])
@@ -62,6 +90,13 @@ def grid():
         left = pos[0] + 23
 
     return lst
+
+
+def getcoords(pos, idx1, idx2):  # list of board, screen coords, index of row, and column
+    x = pos[0] + (45 * idx2)
+    y = pos[1] + (45 * idx1)
+
+    return x + 22.5, y + 22.5
 
 
 ''' 
