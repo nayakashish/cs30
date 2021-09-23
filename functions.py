@@ -49,8 +49,11 @@ def adjacents(lst, idx1, idx2):
 def classify(x, y):
     y = int(y)
     x = int(x)
-    if pyautogui.pixelMatchesColor(x, y, (162, 208, 73), tolerance=20):
-        icon = '-'
+    if pyautogui.pixelMatchesColor(x, y-4, (182, 188, 68), tolerance=40):
+        icon = '-' # I DONT UNDERSTAND WHY IT WORKS, IT JUST DOES
+        # print(pyautogui.pixel(x, y))
+    elif pyautogui.pixelMatchesColor(x, y, (162, 208, 73), tolerance=20):
+        icon = 'X'
     elif pyautogui.pixelMatchesColor(x, y, (215, 184, 153), tolerance=20):
         icon = ' '
     elif pyautogui.pixelMatchesColor(x, y, (25, 118, 211), tolerance=20):
@@ -63,6 +66,7 @@ def classify(x, y):
         icon = '4'
     else:
         icon = '!'
+        print(x, y)
         print(pyautogui.pixel(x, y))
 
         # print(rgb)
@@ -72,7 +76,7 @@ def classify(x, y):
 
 def grid(pos):
     left = pos[0] + 23
-    top = pos[1] + 22.5
+    top = pos[1] + 23
     # shot = screenshot(pos[0], pos[1], pos[2], pos[3])
     lst = []
     templst = []
@@ -96,7 +100,7 @@ def getcoords(pos, idx1, idx2):  # list of board, screen coords, index of row, a
     x = pos[0] + (45 * idx2)
     y = pos[1] + (45 * idx1)
 
-    return x + 22.5, y + 22.5
+    return int(x + 22.5), int(y + 22.5)
 
 
 ''' 
