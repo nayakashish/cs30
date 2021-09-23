@@ -11,7 +11,6 @@ pos = [1027, 385, 450, 360]  # School Computer
 
 grid = grid(pos)
 
-[print(*row) for row in grid]
 
 idx1 = 0
 idx2 = 0
@@ -28,6 +27,8 @@ for i in grid:
                 pass
             elif j == str(adjs.count('P')):
                 # all unopened cells can be opened as they cannot be bombs.
+                # if action openall
+                unopened(grid, idx1, idx2, adjs, 'openAll')
                 pass
             else:
                 pass

@@ -2,6 +2,7 @@ import pyautogui
 import time
 
 
+
 def screenshot(left, top, width, height, title=''):
     if title == '':
         image = pyautogui.screenshot(region=(left, top, width, height))
@@ -96,15 +97,7 @@ def grid(pos):
     return lst
 
 
-def getcoords(pos, idx1, idx2):  # list of board, screen coords, index of row, and column
-    x = pos[0] + (45 * idx2)
-    y = pos[1] + (45 * idx1)
-
-    return int(x + 22.5), int(y + 22.5)
-
-
-def unopened(grid, idx1, idx2, adjacentlist, action):
-    adjs = adjacentlist
+def unopened(board, idx1, idx2, adjs, action):
     if action == 'flagAll':
         for i in range(len(adjs)):
             temp1 = idx1
@@ -131,12 +124,52 @@ def unopened(grid, idx1, idx2, adjacentlist, action):
                     temp1 += 1
                     temp2 += 1
 
-                grid[temp1][temp2] = 'P'
-                #fix thisss
+                board[temp1][temp2] = 'P'
+                # fix thisss
             else:
                 continue
-    return grid
+    if action == 'openAll':
+        for i in range(len(adjs)):
+            temp1 = idx1
+            temp2 = idx2
+            if adjs[i] == '-':
+                if i == 0:
+                    temp1 -= 1
+                    temp2 -= 1
+                elif i == 1:
+                    temp1 -= 1
+                elif i == 2:
+                    temp1 -= 1
+                    temp2 += 1
+                elif i == 3:
+                    temp2 -= 1
+                elif i == 4:
+                    temp2 += 1
+                elif i == 5:
+                    temp1 += 1
+                    temp2 -= 1
+                elif i == 6:
+                    temp1 += 1
+                elif i == 7:
+                    temp1 += 1
+                    temp2 += 1
 
+                coords = getcoords(temp1, temp2)
+                pyautogui.click(x=coords[0], y=coords[1])
+
+                # fix thisss
+            else:
+                continue
+    return board
+
+
+def getcoords(idx1, idx2):  # list of board, screen coords, index of row, and column
+    import main
+    pos = main.pos
+    x = pos[0] + (45 * idx2)
+    y = pos[1] + (45 * idx1)
+
+    return int(x + 22.5), int(y + 22.5)
     # [/, /, /, -, '', -, 2, '']
     # 0           i -= 1
     # 0           j -= 1
