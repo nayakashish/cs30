@@ -18,14 +18,26 @@ idx2 = 0
 for i in grid:
     for j in i:
         # print(j)
-        if j != ' ' and j != '-':  # or j == flag...
+        if j != ' ' and j != '-' and j != 'P':
             adjs = adjacents(grid, idx1, idx2)
-            if grid[idx1][idx2] == str(adjs.count('-')):
-                # print("yes")
-                # print(getcoords(pos, idx1, idx2))
+            if j == str(adjs.count('-')):
+                # if cell number == number of unopened cells...
+                # Get those cells and flag them.
+                unopened(grid, idx1, idx2, adjs, 'flagAll')
+
+            elif j == str(adjs.count('P') + adjs.count('-')):
+                # if cell number == number of unopened cells and flags...
+                pass
+            elif j == str(adjs.count('P')):
+                # all unopened cells can be opened as they cannot be bombs.
+                pass
+            else:
                 pass
 
         idx2 += 1
     # if number of empty squares equals number of bombs then bomb must be those squares
     idx1 += 1
     idx2 = 0
+
+print('')
+[print(*row) for row in grid]

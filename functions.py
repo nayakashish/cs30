@@ -38,9 +38,9 @@ def adjacents(lst, idx1, idx2):
             j += 1
 
         if i < 0 or i > 7:
-            continue
+            adj.append('/')
         elif j < 0 or j > 9:
-            continue
+            adj.append('/')  # Slash means index out of bounds.
         else:
             adj.append(lst[i][j])
     return adj
@@ -49,11 +49,11 @@ def adjacents(lst, idx1, idx2):
 def classify(x, y):
     y = int(y)
     x = int(x)
-    if pyautogui.pixelMatchesColor(x, y-4, (182, 188, 68), tolerance=40):
-        icon = '-' # I DONT UNDERSTAND WHY IT WORKS, IT JUST DOES
+    if pyautogui.pixelMatchesColor(x, y - 4, (182, 188, 68), tolerance=40):
+        icon = '-'  # I DONT UNDERSTAND WHY IT WORKS, IT JUST DOES
         # print(pyautogui.pixel(x, y))
     elif pyautogui.pixelMatchesColor(x, y, (162, 208, 73), tolerance=20):
-        icon = 'X'
+        icon = 'P'
     elif pyautogui.pixelMatchesColor(x, y, (215, 184, 153), tolerance=20):
         icon = ' '
     elif pyautogui.pixelMatchesColor(x, y, (25, 118, 211), tolerance=20):
@@ -101,6 +101,55 @@ def getcoords(pos, idx1, idx2):  # list of board, screen coords, index of row, a
     y = pos[1] + (45 * idx1)
 
     return int(x + 22.5), int(y + 22.5)
+
+
+def unopened(grid, idx1, idx2, adjacentlist, action):
+    adjs = adjacentlist
+    temp1 = idx1
+    temp2 = idx2
+    if action == 'flagAll':
+        for i in range(len(adjs)):
+            if adjs[i] == '-':
+                if i == 0:
+                    idx1 -= 1
+                    idx2 -= 1
+                elif i == 1:
+                    idx1 -= 1
+                elif i == 2:
+                    idx1 -= 1
+                    idx2 += 1
+                elif i == 3:
+                    idx2 -= 1
+                elif i == 4:
+                    idx2 += 1
+                elif i == 5:
+                    idx1 += 1
+                    idx2 -= 1
+                elif i == 6:
+                    idx1 += 1
+                elif i == 7:
+                    idx1 += 1
+                    idx2 += 1
+
+                grid[idx1][idx2] = 'P'
+                #fix thisss
+            else:
+                continue
+    return grid
+
+    # [/, /, /, -, '', -, 2, '']
+    # 0           i -= 1
+    # 0           j -= 1
+    # 1           i -= 1
+    # 2           i -= 1
+    # 2           j += 1
+    # 3           j -= 1
+    # 4           j += 1
+    # 5           i += 1
+    # 5           j -= 1
+    # 6           i += 1
+    # 7           i += 1
+    # 7           j += 1
 
 
 ''' 
