@@ -20,13 +20,11 @@ for i in grid:
         # print(j)
         if j != ' ' and j != '-' and j != 'P':
             adjs = adjacents(grid, idx1, idx2)
-            if j == str(adjs.count('-')):
+            if j == str(adjs.count('P') + adjs.count('-')):
                 # if cell number == number of unopened cells...
                 # Get those cells and flag them.
-                unopened(grid, idx1, idx2, adjs, 'flagAll')
-
-            elif j == str(adjs.count('P') + adjs.count('-')):
                 # if cell number == number of unopened cells and flags...
+                unopened(grid, idx1, idx2, adjs, 'flagAll')
                 pass
             elif j == str(adjs.count('P')):
                 # all unopened cells can be opened as they cannot be bombs.

@@ -105,33 +105,33 @@ def getcoords(pos, idx1, idx2):  # list of board, screen coords, index of row, a
 
 def unopened(grid, idx1, idx2, adjacentlist, action):
     adjs = adjacentlist
-    temp1 = idx1
-    temp2 = idx2
     if action == 'flagAll':
         for i in range(len(adjs)):
+            temp1 = idx1
+            temp2 = idx2
             if adjs[i] == '-':
                 if i == 0:
-                    idx1 -= 1
-                    idx2 -= 1
+                    temp1 -= 1
+                    temp2 -= 1
                 elif i == 1:
-                    idx1 -= 1
+                    temp1 -= 1
                 elif i == 2:
-                    idx1 -= 1
-                    idx2 += 1
+                    temp1 -= 1
+                    temp2 += 1
                 elif i == 3:
-                    idx2 -= 1
+                    temp2 -= 1
                 elif i == 4:
-                    idx2 += 1
+                    temp2 += 1
                 elif i == 5:
-                    idx1 += 1
-                    idx2 -= 1
+                    temp1 += 1
+                    temp2 -= 1
                 elif i == 6:
-                    idx1 += 1
+                    temp1 += 1
                 elif i == 7:
-                    idx1 += 1
-                    idx2 += 1
+                    temp1 += 1
+                    temp2 += 1
 
-                grid[idx1][idx2] = 'P'
+                grid[temp1][temp2] = 'P'
                 #fix thisss
             else:
                 continue
