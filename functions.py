@@ -2,7 +2,6 @@ import pyautogui
 import time
 
 
-
 def screenshot(left, top, width, height, title=''):
     if title == '':
         image = pyautogui.screenshot(region=(left, top, width, height))
@@ -61,7 +60,8 @@ def classify(x, y):
         icon = '1'
     elif pyautogui.pixelMatchesColor(x, y, (57, 142, 61), tolerance=65):
         icon = '2'
-    elif pyautogui.pixelMatchesColor(x, y, (208, 48, 47), tolerance=20):
+    # elif pyautogui.pixelMatchesColor(x, y, (208, 48, 47), tolerance=20): school comp
+    elif pyautogui.pixelMatchesColor(x, y, (214, 150, 127), tolerance=20):
         icon = '3'
     elif pyautogui.pixelMatchesColor(x, y, (143, 64, 161), tolerance=20):
         icon = '4'
@@ -97,7 +97,7 @@ def grid(pos):
     return lst
 
 
-def unopened(board, idx1, idx2, adjs, action):
+def unopened(pos, board, idx1, idx2, adjs, action):
     if action == 'flagAll':
         for i in range(len(adjs)):
             temp1 = idx1
@@ -125,10 +125,12 @@ def unopened(board, idx1, idx2, adjs, action):
                     temp2 += 1
 
                 board[temp1][temp2] = 'P'
-                # fix thisss
+                coords = getcoords(pos, temp1, temp2)
+                # pyautogui.click(x=coords[0], y=coords[1], button='right')
+
             else:
                 continue
-    if action == 'openAll':
+    elif action == 'openAll':
         for i in range(len(adjs)):
             temp1 = idx1
             temp2 = idx2
@@ -154,18 +156,25 @@ def unopened(board, idx1, idx2, adjs, action):
                     temp1 += 1
                     temp2 += 1
 
-                coords = getcoords(temp1, temp2)
+                coords = getcoords(pos, temp1, temp2)
                 pyautogui.click(x=coords[0], y=coords[1])
 
-                # fix thisss
             else:
                 continue
     return board
 
 
-def getcoords(idx1, idx2):  # list of board, screen coords, index of row, and column
-    import main
-    pos = main.pos
+def countflags(grid):
+    count = 10
+    for i in grid:
+        for j in i:
+            if j == 'P':
+                count -= 1
+    return count
+
+
+def getcoords(pos, idx1, idx2):  # list of board, screen coords, index of row, and column
+
     x = pos[0] + (45 * idx2)
     y = pos[1] + (45 * idx1)
 
