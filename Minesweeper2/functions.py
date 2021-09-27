@@ -90,8 +90,9 @@ def grid(pos):
     return lst
 
 
-def unopened(pos, board, idx1, idx2, adjacent, action):
+def unopened(idx1, idx2, adjacent, action):
     for i in range(len(adjacent)):
+        newlst = []
         temp1 = idx1
         temp2 = idx2
         if adjacent[i] == '-':
@@ -117,12 +118,12 @@ def unopened(pos, board, idx1, idx2, adjacent, action):
                 temp2 += 1
 
             if action == 'flagAll':
-                board[temp1][temp2] = 'P'
+                newlst.append([temp1, temp2])
             elif action == 'openAll':
-                coords = get_coords(pos, temp1, temp2)
-                pyautogui.click(x=coords[0], y=coords[1])
 
-    return board
+                newlst.append([temp1], [temp2])
+
+    return newlst
 
 
 def count_flags(lst):

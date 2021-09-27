@@ -1,5 +1,4 @@
 import functions
-import time
 
 # GRID cells are 45x45px
 
