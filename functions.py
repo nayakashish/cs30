@@ -60,8 +60,8 @@ def classify(x, y):
         icon = '1'
     elif pyautogui.pixelMatchesColor(x, y, (57, 142, 61), tolerance=65):
         icon = '2'
-    # elif pyautogui.pixelMatchesColor(x, y, (208, 48, 47), tolerance=20): school comp
-    elif pyautogui.pixelMatchesColor(x, y, (214, 150, 127), tolerance=20):
+    # elif pyautogui.pixelMatchesColor(x, y, (208, 48, 47), tolerance=20):
+    elif pyautogui.pixelMatchesColor(x, y, (214, 150, 127), tolerance=25):
         icon = '3'
     elif pyautogui.pixelMatchesColor(x, y, (143, 64, 161), tolerance=20):
         icon = '4'
@@ -97,70 +97,41 @@ def grid(pos):
     return lst
 
 
-def unopened(pos, board, idx1, idx2, adjs, action):
-    if action == 'flagAll':
-        for i in range(len(adjs)):
-            temp1 = idx1
-            temp2 = idx2
-            if adjs[i] == '-':
-                if i == 0:
-                    temp1 -= 1
-                    temp2 -= 1
-                elif i == 1:
-                    temp1 -= 1
-                elif i == 2:
-                    temp1 -= 1
-                    temp2 += 1
-                elif i == 3:
-                    temp2 -= 1
-                elif i == 4:
-                    temp2 += 1
-                elif i == 5:
-                    temp1 += 1
-                    temp2 -= 1
-                elif i == 6:
-                    temp1 += 1
-                elif i == 7:
-                    temp1 += 1
-                    temp2 += 1
+def unopened(pos, board, idx1, idx2, adjacent, action):
+    for i in range(len(adjacent)):
+        temp1 = idx1
+        temp2 = idx2
+        if adjacent[i] == '-':
+            if i == 0:
+                temp1 -= 1
+                temp2 -= 1
+            elif i == 1:
+                temp1 -= 1
+            elif i == 2:
+                temp1 -= 1
+                temp2 += 1
+            elif i == 3:
+                temp2 -= 1
+            elif i == 4:
+                temp2 += 1
+            elif i == 5:
+                temp1 += 1
+                temp2 -= 1
+            elif i == 6:
+                temp1 += 1
+            elif i == 7:
+                temp1 += 1
+                temp2 += 1
 
+            if action == 'flagAll':
                 board[temp1][temp2] = 'P'
-                coords = getcoords(pos, temp1, temp2)
+                # coords = getcoords(pos, temp1, temp2)
                 # pyautogui.click(x=coords[0], y=coords[1], button='right')
-
-            else:
-                continue
-    elif action == 'openAll':
-        for i in range(len(adjs)):
-            temp1 = idx1
-            temp2 = idx2
-            if adjs[i] == '-':
-                if i == 0:
-                    temp1 -= 1
-                    temp2 -= 1
-                elif i == 1:
-                    temp1 -= 1
-                elif i == 2:
-                    temp1 -= 1
-                    temp2 += 1
-                elif i == 3:
-                    temp2 -= 1
-                elif i == 4:
-                    temp2 += 1
-                elif i == 5:
-                    temp1 += 1
-                    temp2 -= 1
-                elif i == 6:
-                    temp1 += 1
-                elif i == 7:
-                    temp1 += 1
-                    temp2 += 1
-
+            elif action == 'openAll':
                 coords = getcoords(pos, temp1, temp2)
                 pyautogui.click(x=coords[0], y=coords[1])
+                # print('Click (xy) = {} - {}'.format(coords[0], coords[1]))
 
-            else:
-                continue
     return board
 
 

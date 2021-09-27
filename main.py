@@ -7,9 +7,9 @@ import time
 # pos = [left, top, width, height]
 
 
-pos = [1207, 421, 450, 360]  # Home Computer
+#pos = [1207, 421, 450, 360]  # Home Computer
 
-# pos = [1027, 385, 450, 360]  # School Computer
+pos = [1027, 385, 450, 360]  # School Computer
 
 grid = functions.grid(pos)
 
@@ -48,6 +48,7 @@ def main(grid):
         idx2 = 0
         [print(*row) for row in grid]
         print('\n')
+
     return grid
 
 
