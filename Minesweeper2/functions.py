@@ -58,15 +58,15 @@ def classify(x, y):
         icon = '1'
     elif pyautogui.pixelMatchesColor(x, y, (57, 142, 61), tolerance=65):
         icon = '2'
-    # elif pyautogui.pixelMatchesColor(x, y, (208, 48, 47), tolerance=20):
-    elif pyautogui.pixelMatchesColor(x, y, (214, 150, 127), tolerance=25):
+    elif pyautogui.pixelMatchesColor(x, y, (208, 48, 47), tolerance=20):
+    # elif pyautogui.pixelMatchesColor(x, y, (214, 150, 127), tolerance=25):
         icon = '3'
     elif pyautogui.pixelMatchesColor(x, y, (143, 64, 161), tolerance=20):
         icon = '4'
     else:
         icon = '!'
-        print(x, y)
-        print(pyautogui.pixel(x, y))
+        print('Unrecognized Cell @ {}, {}. \nColour Code: {}'.format(x, y, pyautogui.pixel(x, y)))
+        exit()
 
     return icon
 
@@ -90,9 +90,12 @@ def grid(pos):
     return lst
 
 
+flaglst = []
+openlst = []
+
+
 def unopened(idx1, idx2, adjacent, action):
     for i in range(len(adjacent)):
-        newlst = []
         temp1 = idx1
         temp2 = idx2
         if adjacent[i] == '-':
@@ -118,12 +121,22 @@ def unopened(idx1, idx2, adjacent, action):
                 temp2 += 1
 
             if action == 'flagAll':
-                newlst.append([temp1, temp2])
+                if [temp1, temp2] not in flaglst:
+                    flaglst.append([temp1, temp2])
             elif action == 'openAll':
+                if [temp1, temp2] not in openlst:
+                    openlst.append([temp1, temp2])
 
-                newlst.append([temp1], [temp2])
+    if action == 'flagAll':
+        return flaglst
+    elif action == 'openAll':
+        return openlst
 
-    return newlst
+
+def update_board(board, cells_to_update, new_icon):  # cells to update must be list
+    for value in cells_to_update:
+        board[value[0]][value[1]] = new_icon
+    return board
 
 
 def count_flags(lst):
@@ -135,8 +148,12 @@ def count_flags(lst):
     return count
 
 
-def get_coords(pos, idx1, idx2):
-    x = pos[0] + (45 * idx2)
-    y = pos[1] + (45 * idx1)
+def click_cells(pos, lst_cells, button='left'):
+    for i in lst_cells:
+        x = pos[0] + (45 * i[1])
+        y = pos[1] + (45 * i[0])
+        pyautogui.click(x + 23, y + 23, button=button)
+    openlst.clear()
 
-    return int(x + 22.5), int(y + 22.5)
+    pyautogui.moveTo(1025, 330)
+    return
