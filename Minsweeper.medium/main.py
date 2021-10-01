@@ -3,8 +3,9 @@ from random import randrange
 
 from functions import *
 
-pos = [1027, 385, 450, 360]  # School Computer
-
+#pos = [1027, 385, 450, 360]  # School Computer
+#
+pos = [982, 356, 540, 420]
 
 # pos = [1207, 421, 450, 360]  # Home Computer
 

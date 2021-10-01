@@ -61,7 +61,7 @@ def classify(x, y):
     elif pyautogui.pixelMatchesColor(x, y, (208, 48, 47), tolerance=20):
     # elif pyautogui.pixelMatchesColor(x, y, (214, 150, 127), tolerance=25):
         icon = '3'
-    elif pyautogui.pixelMatchesColor(x, y, (143, 64, 161), tolerance=20):
+    elif pyautogui.pixelMatchesColor(x, y, (166, 102, 158), tolerance=20):
         icon = '4'
     elif pyautogui.pixelMatchesColor(x, y, (255, 143, 0), tolerance=20):
         icon = '5'
@@ -74,20 +74,20 @@ def classify(x, y):
 
 
 def grid(pos):
-    left = pos[0] + 23
-    top = pos[1] + 23
+    left = pos[0] + 15
+    top = pos[1] + 15
     lst = []
     templst = []
-    for j in range(8):
+    for j in range(14):
 
-        for i in range(10):
+        for i in range(18):
             templst.append(classify(left, top))
 
-            left += 45
+            left += 30
         lst.append(templst)
         templst = []
-        top += 45
-        left = pos[0] + 23
+        top += 30
+        left = pos[0] + 15
 
     return lst
 
@@ -152,9 +152,9 @@ def count_flags(lst):
 
 def click_cells(pos, lst_cells, button='left'):
     for i in lst_cells:
-        x = pos[0] + (45 * i[1])
-        y = pos[1] + (45 * i[0])
-        pyautogui.click(x + 23, y + 23, button=button)
+        x = pos[0] + (30 * i[1])
+        y = pos[1] + (30 * i[0])
+        pyautogui.click(x + 15, y + 15, button=button)
     openlst.clear()
     flaglst.clear()
 
